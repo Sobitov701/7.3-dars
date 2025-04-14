@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import AxiosInstance from "../utils/index";
+import { axiosInstance } from "../utils";
 
-function UseFetch() {
-  const { data, setData } = useState(null);
-  const { isPending, setIsPending } = useState(false);
-  const { error, setError } = useState(false);
+function UseFetch(url) {
+  const [data, setData] = useState(null);
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fechData = async () => {
       setIsPending(true);
       try {
-        const req = await AxiosInstance(url);
+        const req = await axiosInstance(url);
         setData(req);
       } catch (error) {
         console.log(error);
@@ -19,6 +19,8 @@ function UseFetch() {
         setIsPending(false);
       }
     };
+
+    fechData();
   }, [url]);
   return { data, isPending, error };
 }

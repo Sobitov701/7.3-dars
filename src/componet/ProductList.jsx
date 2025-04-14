@@ -1,5 +1,17 @@
+import { useLoaderData } from "react-router-dom";
+import Product from "./Product";
+
 function ProductList() {
-  return <div></div>;
+  const {
+    data: { products },
+  } = useLoaderData();
+  return (
+    <div>
+      {products.map((product) => {
+        return <Product product={product} key={product.id} />;
+      })}
+    </div>
+  );
 }
 
 export default ProductList;
